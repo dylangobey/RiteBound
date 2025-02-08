@@ -2,16 +2,19 @@
 // This code can only be used under the standard Unity Asset Store End User License Agreement,
 // a copy of which is available at http://unity3d.com/company/legal/as_terms.
 
+using System;
 using CCGKit;
 using DG.Tweening;
 using FullSerializer;
 using System.IO;
 using System.Collections.Generic;
+using System.Diagnostics;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Debug = UnityEngine.Debug;
 
 #if ENABLE_DEDICATED_SERVER
 using DedicatedServerKit;
@@ -230,6 +233,41 @@ namespace CCGKit
         public void OnSinglePlayerGameButtonPressed()
         {
             GameNetworkManager.Instance.StartHost();
+            if (!IsProcessRunning("RiteBoundServer.exe")) RunBot();
+        }
+
+        private void RunBot()
+        {
+            string gameExecutablePath = Process.GetCurrentProcess().MainModule.FileName;
+            string gameExeDirectory = Path.GetDirectoryName(gameExecutablePath);
+            
+            string serverFolderPath = Path.Combine(gameExeDirectory, "Server");
+
+            string serverExePath = Path.Combine(serverFolderPath, "RiteBoundServer.exe");
+
+            if (File.Exists(serverExePath))
+            {
+                ProcessStartInfo startInfo = new ProcessStartInfo(serverExePath);
+                startInfo.WorkingDirectory = gameExeDirectory;
+                startInfo.CreateNoWindow = true;
+                startInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                var process = Process.Start(startInfo);
+
+                global::GameManager.instance.process = process;
+                
+                Debug.LogError("RiteBoundServer.exe Started Successfully!");
+            }
+            else
+            {
+                Debug.LogError("RiteBoundServer.exe not found at: " + serverExePath);
+            }
+        }
+
+        private bool IsProcessRunning(string processName)
+        {
+            Process[] processes = Process.GetProcessesByName(processName);
+            
+            return processes.Length > 0;
         }
 
         public void OnCreateLANGameButtonPressed()
