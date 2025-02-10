@@ -290,7 +290,7 @@ namespace CCGKit
 
         public void OnJoinLANGameButtonPressed()
         {
-            GameNetworkManager.Instance.networkAddress = "192.168.56.1";
+            //GameNetworkManager.Instance.networkAddress = "192.168.56.1";
             GameNetworkManager.Instance.StartClient();
         }
 
