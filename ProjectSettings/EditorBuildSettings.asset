@@ -7,6 +7,9 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 1
     path: Assets/CCGKit/Demo/Scenes/Home.unity
+    guid: 688ad35e291723944aee83e1fc4a0f60
+  - enabled: 1
+    path: Assets/CCGKit/Demo/Scenes/IPConfig.unity
     guid: 2dbda52846efd49d2abae89b74d0501f
   - enabled: 1
     path: Assets/CCGKit/Demo/Scenes/Lobby.unity

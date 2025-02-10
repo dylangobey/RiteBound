@@ -9,6 +9,8 @@ using FullSerializer;
 using System.IO;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
+using System.Net;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -236,6 +238,11 @@ namespace CCGKit
             if (!IsProcessRunning("RiteBoundServer.exe")) RunBot();
         }
 
+        public void OnMultiPlayerGameButtonPressed()
+        {
+            SceneManager.LoadScene("IPConfig");
+        }
+
         private void RunBot()
         {
             string gameExecutablePath = Process.GetCurrentProcess().MainModule.FileName;
@@ -249,8 +256,8 @@ namespace CCGKit
             {
                 ProcessStartInfo startInfo = new ProcessStartInfo(serverExePath);
                 startInfo.WorkingDirectory = gameExeDirectory;
-                startInfo.CreateNoWindow = true;
-                startInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                startInfo.CreateNoWindow = false;
+                startInfo.WindowStyle = ProcessWindowStyle.Normal;
                 var process = Process.Start(startInfo);
 
                 global::GameManager.instance.process = process;
@@ -272,11 +279,18 @@ namespace CCGKit
 
         public void OnCreateLANGameButtonPressed()
         {
+            var localIP = Dns.GetHostEntry(Dns.GetHostName()).AddressList
+                .First(f => f.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork).ToString();
+
+            GameNetworkManager.Instance.networkAddress = localIP;
             GameNetworkManager.Instance.StartHost();
+            
+            Debug.Log(GameNetworkManager.Instance.networkAddress);
         }
 
         public void OnJoinLANGameButtonPressed()
         {
+            GameNetworkManager.Instance.networkAddress = "192.168.56.1";
             GameNetworkManager.Instance.StartClient();
         }
 

@@ -9,7 +9,7 @@ namespace CCGKit
     /// </summary>
     public static class CCGKitInfo
     {
-        public static readonly string version = "2.5.0";
-        public static readonly string copyright = "Copyright (C) 2016-2023 gamevanilla. All rights reserved.";
+        public static readonly string version = "0.0.1";
+        public static readonly string copyright = "";
     }
 }

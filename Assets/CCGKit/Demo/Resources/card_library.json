@@ -830,6 +830,73 @@
                     }
                 ],
                 "id": 11
+            },
+            {
+                "cardTypeId": 1,
+                "name": "Test",
+                "costs": [
+                    {
+                        "statId": 1,
+                        "value": 1,
+                        "$type": "CCGKit.PayResourceCost"
+                    }
+                ],
+                "properties": [
+                    {
+                        "value": "Placeholder text",
+                        "name": "Text",
+                        "$type": "CCGKit.StringProperty"
+                    },
+                    {
+                        "value": "Spell",
+                        "name": "Picture",
+                        "$type": "CCGKit.StringProperty"
+                    },
+                    {
+                        "value": 4,
+                        "name": "MaxCopies",
+                        "$type": "CCGKit.IntProperty"
+                    },
+                    {
+                        "value": null,
+                        "name": "Material",
+                        "$type": "CCGKit.StringProperty"
+                    }
+                ],
+                "stats": [],
+                "keywords": [
+                    {
+                        "keywordId": 0,
+                        "valueId": 1
+                    }
+                ],
+                "abilities": [
+                    {
+                        "trigger": {
+                            "zoneId": 2,
+                            "$type": "CCGKit.OnCardEnteredZoneTrigger"
+                        },
+                        "name": "Heal 1 Damage",
+                        "type": "Triggered",
+                        "effect": {
+                            "value": {
+                                "zoneId": 0,
+                                "$type": "CCGKit.CardsInZoneValue"
+                            },
+                            "duration": 0,
+                            "statId": 0,
+                            "gameZoneId": 0,
+                            "cardTypeId": 0,
+                            "$type": "CCGKit.IncreaseCardStatEffect"
+                        },
+                        "target": {
+                            "conditions": [],
+                            "$type": "CCGKit.ThisCard"
+                        },
+                        "$type": "CCGKit.TriggeredAbility"
+                    }
+                ],
+                "id": 12
             }
         ]
     }
